@@ -1,839 +1,391 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>异环攻略 · 超自然都市异象猎人完整指南</title>
-    <style>
-        :root {
-            --bg: #f5f0eb;
-            --card-bg: #fffef9;
-            --text: #3e3640;
-            --text-secondary: #6b5e6b;
-            --accent: #00b8d4;
-            --accent2: #ff6b6b;
-            --accent3: #8e44ad;
-            --border: #e0d6cc;
-            --shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
-            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.10);
-            --nav-bg: rgba(255, 254, 249, 0.92);
-            --tag-bg: #e6f7fb;
-            --tag-text: #0277bd;
-            --highlight: #e0f7fa;
-            --scrollbar-thumb: #00acc1;
-            --scrollbar-track: #ece4d9;
-            --code-bg: #fdf6ee;
-            --divider: #e8dfd3;
-        }
-        [data-theme="dark"] {
-            --bg: #12121a;
-            --card-bg: #1e1e2f;
-            --text: #d4cfc9;
-            --text-secondary: #a09a95;
-            --accent: #26c6da;
-            --accent2: #ff8787;
-            --accent3: #b370d0;
-            --border: #38383f;
-            --shadow: 0 2px 16px rgba(0, 0, 0, 0.30);
-            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.40);
-            --nav-bg: rgba(30, 30, 47, 0.94);
-            --tag-bg: #203647;
-            --tag-text: #4dd0e1;
-            --highlight: #1a2a3a;
-            --scrollbar-thumb: #0097a7;
-            --scrollbar-track: #2a2a30;
-            --code-bg: #2a282e;
-            --divider: #38383f;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            transition: background-color 0.4s ease, color 0.4s ease;
-            min-height: 100vh;
-        }
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--scrollbar-track);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent2);
-        }
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--nav-bg);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border);
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-            gap: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
-        }
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--accent);
-            white-space: nowrap;
-            cursor: pointer;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-        }
-        .navbar .logo .icon-circle {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0, 184, 212, 0.3);
-        }
-        .nav-links {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .nav-links a,
-        .nav-links button {
-            text-decoration: none;
-            color: var(--text-secondary);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 500;
-        }
-        .nav-links a:hover,
-        .nav-links button:hover {
-            color: var(--accent);
-            background: var(--tag-bg);
-        }
-        .nav-links a.active {
-            color: #fff;
-            background: var(--accent);
-            font-weight: 600;
-        }
-        .theme-toggle {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            background: var(--card-bg);
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: var(--text);
-        }
-        .theme-toggle:hover {
-            border-color: var(--accent2);
-            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
-        }
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 6px;
-        }
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2.5px;
-            background: var(--text);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        .main-container {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px 24px;
-            gap: 24px;
-            min-height: calc(100vh - 120px);
-        }
-        .sidebar {
-            width: 260px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 84px;
-            height: fit-content;
-            max-height: calc(100vh - 120px);
-            overflow-y: auto;
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px 16px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        .sidebar h3 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            padding-left: 6px;
-        }
-        .sidebar .category-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        .sidebar .category-list li a {
-            display: block;
-            padding: 10px 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text);
-            font-size: 0.93rem;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            border-left: 3px solid transparent;
-        }
-        .sidebar .category-list li a:hover {
-            background: var(--tag-bg);
-            color: var(--accent);
-            border-left-color: var(--accent2);
-        }
-        .sidebar .category-list li a.active-cat {
-            background: var(--highlight);
-            color: var(--accent);
-            border-left-color: var(--accent);
-            font-weight: 700;
-        }
-        .sidebar .badge {
-            float: right;
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-        .content-area {
-            flex: 1;
-            min-width: 0;
-        }
-        .search-bar-wrap {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .search-bar-wrap input {
-            flex: 1;
-            padding: 13px 18px;
-            border-radius: 28px;
-            border: 2px solid var(--border);
-            background: var(--card-bg);
-            font-size: 0.95rem;
-            color: var(--text);
-            transition: all 0.3s ease;
-            font-family: inherit;
-            outline: none;
-            box-shadow: var(--shadow);
-        }
-        .search-bar-wrap input:focus {
-            border-color: var(--accent2);
-            box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.08);
-        }
-        .search-bar-wrap button {
-            padding: 13px 22px;
-            border-radius: 28px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            white-space: nowrap;
-        }
-        .search-bar-wrap button:hover {
-            background: #0097a7;
-            box-shadow: 0 4px 16px rgba(0, 184, 212, 0.3);
-            transform: translateY(-1px);
-        }
-        .search-hint {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: -10px;
-            margin-bottom: 16px;
-            padding-left: 8px;
-        }
-        .results-count {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            font-weight: 500;
-        }
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 18px;
-        }
-        .guide-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 22px 20px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: all 0.35s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .guide-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
-            border-color: var(--accent2);
-        }
-        .guide-card .card-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 14px;
-            letter-spacing: 0.5px;
-        }
-        .badge-game {
-            background: #e0f7fa;
-            color: #00838f;
-        }
-        [data-theme="dark"] .badge-game {
-            background: #1a3439;
-            color: #4dd0e1;
-        }
-        .badge-battle {
-            background: #ffebee;
-            color: #c62828;
-        }
-        [data-theme="dark"] .badge-battle {
-            background: #3a1a1a;
-            color: #ef9a9a;
-        }
-        .badge-team {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-        [data-theme="dark"] .badge-team {
-            background: #1a2a3a;
-            color: #90caf9;
-        }
-        .badge-life {
-            background: #fff8e1;
-            color: #ef6c00;
-        }
-        [data-theme="dark"] .badge-life {
-            background: #3a2a10;
-            color: #ffcc80;
-        }
-        .badge-start {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-        [data-theme="dark"] .badge-start {
-            background: #1b3a1b;
-            color: #81c784;
-        }
-        .guide-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 6px;
-            color: var(--text);
-            padding-right: 70px;
-        }
-        .guide-card .card-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin: 8px 0 10px;
-        }
-        .guide-card .card-tags span {
-            font-size: 0.75rem;
-            background: var(--tag-bg);
-            color: var(--tag-text);
-            padding: 3px 10px;
-            border-radius: 14px;
-            font-weight: 500;
-        }
-        .guide-card .card-excerpt {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            line-height: 1.5;
-        }
-        .guide-card .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 14px;
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-        }
-        .guide-card .card-footer .author {
-            font-weight: 600;
-            color: var(--accent3);
-        }
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
-        }
-        .no-results .icon-large {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 12px;
-        }
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.35s ease;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .modal {
-            background: var(--card-bg);
-            border-radius: 20px;
-            max-width: 750px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 30px 28px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            position: relative;
-            animation: modalIn 0.3s ease;
-        }
-        @keyframes modalIn {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        .modal .close-btn {
-            position: absolute;
-            top: 14px;
-            right: 18px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: var(--tag-bg);
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--text);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal .close-btn:hover {
-            background: var(--accent);
-            color: #fff;
-        }
-        .modal h2 {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
-            color: var(--accent);
-            padding-right: 40px;
-        }
-        .modal .modal-meta {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .modal .modal-body {
-            font-size: 0.95rem;
-            line-height: 1.85;
-            color: var(--text);
-        }
-        .modal .modal-body h4 {
-            margin-top: 18px;
-            margin-bottom: 6px;
-            color: var(--accent2);
-            font-size: 1.05rem;
-        }
-        .modal .modal-body ul {
-            padding-left: 20px;
-            margin: 8px 0;
-        }
-        .modal .modal-body li {
-            margin-bottom: 5px;
-        }
-        .modal .modal-body .highlight-box {
-            background: var(--highlight);
-            border-left: 4px solid var(--accent2);
-            padding: 12px 16px;
-            border-radius: 0 10px 10px 0;
-            margin: 14px 0;
-            font-weight: 500;
-        }
-        .modal .modal-body table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0;
-            font-size: 0.85rem;
-        }
-        .modal .modal-body table th,
-        .modal .modal-body table td {
-            border: 1px solid var(--border);
-            padding: 10px 12px;
-            text-align: left;
-        }
-        .modal .modal-body table th {
-            background: var(--tag-bg);
-            font-weight: 600;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--divider);
-            margin-top: 30px;
-        }
-        @media (max-width: 900px) {
-            .sidebar {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 260px;
-                height: calc(100vh - 60px);
-                z-index: 150;
-                border-radius: 0;
-                max-height: none;
-                overflow-y: auto;
-                box-shadow: var(--shadow-lg);
-            }
-            .sidebar.mobile-open {
-                display: block;
-            }
-            .hamburger {
-                display: flex;
-            }
-            .nav-links a {
-                display: none;
-            }
-            .nav-links .hamburger {
-                display: flex;
-            }
-            .nav-links a.mobile-show {
-                display: block;
-            }
-            .guide-grid {
-                grid-template-columns: 1fr;
-            }
-            .main-container {
-                padding: 12px;
-                gap: 12px;
-            }
-            .navbar {
-                padding: 0 12px;
-            }
-            .modal {
-                padding: 20px 16px;
-                max-height: 90vh;
-            }
-        }
-        @media (max-width: 500px) {
-            .search-bar-wrap {
-                flex-direction: column;
-            }
-            .search-bar-wrap button {
-                width: 100%;
-                padding: 12px;
-            }
-            .guide-card h3 {
-                font-size: 1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>异环&原神全攻略站｜开荒｜配队｜机制｜抽卡｜养成｜赚钱玩法</title>
+<style>
+:root{
+    --bg:#f6f2ee;
+    --card-bg:#ffffff;
+    --text:#2d2d2d;
+    --text-secondary:#666666;
+    --accent:#00b4d8;
+    --accent2:#e63946;
+    --accent3:#457b9d;
+    --border:#e2e2e2;
+    --shadow:0 2px 12px rgba(0,0,0,0.06);
+    --highlight:#f0f7ff;
+}
+[data-theme="dark"]{
+    --bg:#12121c;
+    --card-bg:#1e1e2e;
+    --text:#eaeaea;
+    --text-secondary:#aaaaaa;
+    --accent:#48cae4;
+    --accent2:#ff6b6b;
+    --accent3:#77a8d8;
+    --border:#333333;
+    --highlight:#222b3b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:"Microsoft YaHei",PingFang SC,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.7;
+    transition:background 0.3s,color 0.3s;
+}
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:99;
+    background:var(--card-bg);
+    padding:0 20px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+}
+.logo{
+    font-weight:bold;
+    font-size:20px;
+    color:var(--accent);
+}
+.nav{
+    display:flex;
+    gap:10px;
+}
+.nav a{
+    text-decoration:none;
+    color:var(--text-secondary);
+    padding:6px 12px;
+    border-radius:16px;
+    font-size:14px;
+    transition:0.2s;
+}
+.nav a.active{
+    background:var(--accent);
+    color:#fff;
+}
+.nav a:hover{
+    background:var(--highlight);
+    color:var(--accent);
+}
+.theme-btn{
+    background:none;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    color:var(--text);
+}
+.container{
+    max-width:1300px;
+    margin:20px auto;
+    padding:0 20px;
+}
+.search{
+    margin-bottom:20px;
+    display:flex;
+    gap:10px;
+}
+.search input{
+    flex:1;
+    padding:12px 16px;
+    border:1px solid var(--border);
+    border-radius:24px;
+    background:var(--card-bg);
+    color:var(--text);
+    outline:none;
+}
+.search button{
+    padding:12px 20px;
+    border:none;
+    border-radius:24px;
+    background:var(--accent);
+    color:#fff;
+    cursor:pointer;
+    transition:0.2s;
+}
+.search button:hover{
+    background:#0096c7;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:18px;
+}
+.card{
+    background:var(--card-bg);
+    border-radius:16px;
+    padding:20px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    transition:0.25s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.08);
+}
+.card h3{
+    margin-bottom:8px;
+    color:var(--accent);
+    font-size:17px;
+}
+.tags{
+    display:flex;
+    gap:6px;
+    margin:8px 0 12px;
+}
+.tag{
+    font-size:12px;
+    padding:3px 8px;
+    border-radius:12px;
+    background:var(--highlight);
+    color:var(--accent3);
+}
+.tag.genshin{background:#ffebee;color:#c62828}
+.tag.yihuan{background:#e0f7fa;color:#00838f}
+.desc{
+    font-size:14px;
+    color:var(--text-secondary);
+    display:-webkit-box;
+    -webkit-line-clamp:5;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    line-height:1.6;
+}
+.footer{
+    text-align:center;
+    padding:30px;
+    color:var(--text-secondary);
+    font-size:13px;
+    margin-top:40px;
+    border-top:1px solid var(--border);
+}
+</style>
 </head>
 <body>
-<nav class="navbar" id="navbar">
-    <a class="logo" href="#">
-        <span class="icon-circle">异</span>
-        <span>异环攻略</span>
-    </a>
-    <div class="nav-links" id="navLinks">
-        <a href="#" class="active" data-nav="all">全部攻略</a>
-        <a href="#" data-nav="game">核心玩法</a>
-        <a href="#" data-nav="start">新手开荒</a>
-        <a href="#" data-nav="battle">战斗机制</a>
-        <a href="#" data-nav="team">角色配队</a>
-        <a href="#" data-nav="life">都市生活</a>
-        <button class="hamburger" id="hamburgerBtn">
-            <span></span><span></span><span></span>
-        </button>
+<div class="navbar">
+    <div class="logo">🎮 异环&原神全攻略站</div>
+    <div class="nav">
+        <a href="#" class="active" data-all>全部攻略</a>
+        <a href="#" data-genshin>原神专区</a>
+        <a href="#" data-yihuan>异环专区</a>
     </div>
-    <button class="theme-toggle" id="themeToggle">🌙</button>
-</nav>
-
-<div class="main-container">
-    <aside class="sidebar" id="sidebar">
-        <h3>📂 攻略分类</h3>
-        <ul class="category-list">
-            <li><a href="#" class="active-cat" data-cat="all">🏠 全部攻略 <span class="badge">6</span></a></li>
-            <li><a href="#" data-cat="game">🎮 游戏核心玩法 <span class="badge">1</span></a></li>
-            <li><a href="#" data-cat="start">🚀 新手开荒指南 <span class="badge">1</span></a></li>
-            <li><a href="#" data-cat="battle">⚔️ 战斗机制详解 <span class="badge">1</span></a></li>
-            <li><a href="#" data-cat="team">👥 角色配队推荐 <span class="badge">1</span></a></li>
-            <li><a href="#" data-cat="life">🏙️ 都市生活玩法 <span class="badge">1</span></a></li>
-        </ul>
-        <div style="margin-top:20px;padding:14px;background:var(--highlight);border-radius:12px;font-size:0.8rem;color:var(--text-secondary);">
-            <strong>💬 提示</strong><br>点击攻略卡片查看详情，支持搜索快速定位。
-        </div>
-    </aside>
-
-    <main class="content-area" id="contentArea">
-        <div class="search-bar-wrap">
-            <input type="text" id="searchInput" placeholder="🔍 搜索攻略关键词：环合、倾陷、开荒、配队、都市...">
-            <button id="searchBtn">搜索</button>
-        </div>
-        <p class="search-hint" id="searchHint">💡 试试搜索"环合爆发"、"极限闪避"、"开荒流程"</p>
-        <p class="results-count" id="resultsCount">共显示 <strong>6</strong> 篇攻略</p>
-        <div class="guide-grid" id="guideGrid">
-            <!-- 1. 核心玩法 -->
-            <div class="guide-card" data-category="game">
-                <span class="card-badge badge-game">核心玩法</span>
-                <h3>异环｜完整游戏玩法介绍（新手必看）</h3>
-                <div class="card-tags">
-                    <span>超自然都市</span>
-                    <span>异象猎人</span>
-                    <span>开放世界</span>
-                </div>
-                <div class="card-excerpt">
-                    《异环》是Hotta开发的都市开放世界RPG，你扮演**无证异象猎人**，在海特洛市调查超自然异象。核心分为：都市自由探索、异能小队战斗、都市生活经营三大板块。支持墙面跑酷、载具驾驶、买房装修、接取民间委托，玩法自由度极高。
-                </div>
-                <div class="card-footer">
-                    <span class="author">异环攻略组</span>
-                    <span>2026-05-16 更新</span>
-                </div>
-            </div>
-
-            <!-- 2. 新手开荒 -->
-            <div class="guide-card" data-category="start">
-                <span class="card-badge badge-start">新手开荒</span>
-                <h3>异环0基础开荒流程｜主线+升级+资源获取</h3>
-                <div class="card-tags">
-                    <span>开局必做</span>
-                    <span>快速升级</span>
-                    <span>资源规划</span>
-                </div>
-                <div class="card-excerpt">
-                    1. 过完新手剧情→解锁伊波恩古董店（核心基地）
-                    2. 优先推主线，解锁猎人探索、都市委托
-                    3. 每日必做：异象委托、同城派送、雨燕出行（前期主要金币来源）
-                    4. 优先养4星开荒角色，不用盲目抽卡
-                    5. 跑图解锁传送点，收集宝箱、菜谱、隐藏彩蛋
-                </div>
-                <div class="card-footer">
-                    <span class="author">异环攻略组</span>
-                    <span>2026-05-16 更新</span>
-                </div>
-            </div>
-
-            <!-- 3. 战斗机制 -->
-            <div class="guide-card" data-category="battle">
-                <span class="card-badge badge-battle">战斗机制</span>
-                <h3>异环战斗核心｜环合爆发+倾陷破防+极限闪避</h3>
-                <div class="card-tags">
-                    <span>环合反应</span>
-                    <span>倾陷值</span>
-                    <span>极限闪避</span>
-                </div>
-                <div class="card-excerpt">
-                    1. **极限闪避**：敌人红光预警瞬间闪避→无敌+增伤+快速攒倾陷值
-                    2. **倾陷破防**：攻击攒满倾陷值，敌人进入破防状态，承受伤害翻倍
-                    3. **环合爆发**：普攻攒满环合值，切换对应属性角色触发强力联动爆发
-                    4. 输出循环：入轨攻击→普攻攒值→变轨技能→极轨终结技
-                </div>
-                <div class="card-footer">
-                    <span class="author">异环攻略组</span>
-                    <span>2026-05-16 更新</span>
-                </div>
-            </div>
-
-            <!-- 4. 角色配队 -->
-            <div class="guide-card" data-category="team">
-                <span class="card-badge badge-team">角色配队</span>
-                <h3>异环T0配队｜平民开荒/爆发/Boss通用阵容</h3>
-                <div class="card-tags">
-                    <span>平民阵容</span>
-                    <span>环合搭配</span>
-                    <span>属性克制</span>
-                </div>
-                <div class="card-excerpt">
-                    【清怪群怪】光+灵属性→创生环合，大范围爆炸伤害
-                    【单体Boss】灵+咒属性→覆纹环合，后续伤害翻倍
-                    【平民开荒队】晴+柯莱塔+莉娜+诺拉，4星即可成型，环合稳定
-                    【后期爆发队】菲娅+苍鹭+雾深+伊索尔德，版本最强输出组合
-                </div>
-                <div class="card-footer">
-                    <span class="author">异环攻略组</span>
-                    <span>2026-05-16 更新</span>
-                </div>
-            </div>
-
-            <!-- 5. 都市生活 -->
-            <div class="guide-card" data-category="life">
-                <span class="card-badge badge-life">都市生活</span>
-                <h3>异环都市玩法｜赚钱、买房、载具、休闲玩法</h3>
-                <div class="card-tags">
-                    <span>赚钱攻略</span>
-                    <span>买房装修</span>
-                    <span>载具驾驶</span>
-                </div>
-                <div class="card-excerpt">
-                    1. **赚钱方式**：同城送货、网约车接单、异象委托、主线奖励
-                    2. **买房装修**：解锁房产后自由装修，放置家具、布置房间
-                    3. **自由探索**：墙面跑酷、垂直攀爬、驾驶改装车穿梭都市
-                    4. **休闲玩法**：收集菜谱做饭、NPC好感互动、都市传说彩蛋
-                </div>
-                <div class="card-footer">
-                    <span class="author">异环攻略组</span>
-                    <span>2026-05-16 更新</span>
-                </div>
-            </div>
-        </div>
-    </main>
+    <button class="theme-btn" id="themeToggle">🌙</button>
 </div>
 
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modalContent">
-        <button class="close-btn" id="closeModal">✕</button>
-        <div id="modalInner"></div>
+<div class="container">
+    <div class="search">
+        <input type="text" id="kw" placeholder="搜索关键词：开荒｜配队｜深渊｜环合｜抽卡｜养成">
+        <button id="sbtn">搜索</button>
+    </div>
+
+    <div class="grid" id="list">
+
+<!-- ========== 原神 攻略 ========== -->
+<div class="card" data-type="genshin">
+    <h3>原神｜零氪新手完整开荒全攻略</h3>
+    <div class="tags">
+        <span class="tag genshin">原神</span>
+        <span class="tag">开荒</span>
+        <span class="tag">资源规划</span>
+    </div>
+    <div class="desc">
+1. 优先推进主线，解锁七天神像、传送锚点、树脂系统；
+2. 前期必养4星国家队：香菱、行秋、班尼特、重云，零命直接乱杀；
+3. 45级之前不刷圣遗物，树脂全部用来刷天赋、武器突破材料；
+4. 原石只抽版本限定主C，常驻池不要碰；
+5. 每日委托、纪行、深渊是稳定原石来源。
     </div>
 </div>
 
-<footer class="footer">
-    <p>© 2026 异环攻略 · 超自然都市异象猎人 · 数据仅供参考</p>
-    <!-- 谷歌AdSense广告代码，等你拿到ID后替换ca-pub-xxxx -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-【你的谷歌ID】"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-【你的谷歌ID】"
-     data-ad-slot="1234567890"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</footer>
+<div class="card" data-type="genshin">
+    <h3>原神｜2026版本T0配队大全（零命可用）</h3>
+    <div class="tags">
+        <span class="tag genshin">原神</span>
+        <span class="tag">配队</span>
+        <span class="tag">深渊</span>
+    </div>
+    <div class="desc">
+【雷国】雷神+香菱+班尼特+行秋｜平民最强，循环简单；
+【万达国际】公子+万叶+香菱+班尼特｜上限极高，对群无敌；
+【永冻队】神里绫华+万叶+申鹤+莫娜｜冻结控制，轻松满星；
+【胡桃蒸发】胡桃+夜兰+行秋+钟离｜单体爆发天花板；
+【草种门】纳西妲+久岐忍+艾尔海森｜超低成本通深渊。
+    </div>
+</div>
+
+<div class="card" data-type="genshin">
+    <h3>原神｜主流主C圣遗物+武器+天赋加点</h3>
+    <div class="tags">
+        <span class="tag genshin">原神</span>
+        <span class="tag">养成</span>
+        <span class="tag">毕业</span>
+    </div>
+    <div class="desc">
+雷神：绝缘4｜充能沙/雷伤杯/暴击头｜鱼叉/薙刀；
+胡桃：追忆4｜生命沙/火伤杯/暴击头｜决斗之枪/护摩；
+神里绫华：冰套4｜攻击沙/冰伤杯/暴击头｜天目/雾切；
+公子：沉沦4｜攻击沙/水伤杯/暴击头｜绝弦/冬极；
+万叶：风套4｜全精通｜铁蜂刺/苍古自由之誓。
+    </div>
+</div>
+
+<div class="card" data-type="genshin">
+    <h3>原神｜深渊完整机制+破盾+输出手法</h3>
+    <div class="tags">
+        <span class="tag genshin">原神</span>
+        <span class="tag">深渊</span>
+        <span class="tag">技巧</span>
+    </div>
+    <div class="desc">
+1. 破盾优先级：火破冰、水破火、雷破水、冰破雷；
+2. 优先击杀远程怪物，避免被持续消耗；
+3. 增伤顺序：减抗 → 增伤 → 元素反应；
+4. 深渊侵蚀：必须带护盾或高频治疗，不要硬扛；
+5. 聚怪优先万叶，对群输出直接翻倍。
+    </div>
+</div>
+
+<div class="card" data-type="genshin">
+    <h3>原神｜原石规划&抽卡避坑指南</h3>
+    <div class="tags">
+        <span class="tag genshin">原神</span>
+        <span class="tag">抽卡</span>
+        <span class="tag">零氪</span>
+    </div>
+    <div class="desc">
+1. 主C优先：雷神、胡桃、神里、那维莱特；
+2. 辅助必抽：万叶、夜兰、钟离、班尼特；
+3. 不抽重复弱角色、不抽常驻五星；
+4. 原石留存：大版本强势角色优先；
+5. 平民建议：1主C+2辅助+1副C即可通关。
+    </div>
+</div>
+
+<!-- ========== 异环 攻略 ========== -->
+<div class="card" data-type="yihuan">
+    <h3>异环｜超自然都市开放世界完整玩法介绍</h3>
+    <div class="tags">
+        <span class="tag yihuan">异环</span>
+        <span class="tag">玩法</span>
+        <span class="tag">世界观</span>
+    </div>
+    <div class="desc">
+异环是都市开放世界RPG，玩家扮演无证异象猎人，在现代都市海特洛市调查超自然异象。
+核心玩法：自由都市探索、异能小队战斗、环合元素反应、墙面跑酷、垂直攀爬、载具驾驶、买房装修、都市委托赚钱、NPC好感养成。
+超高自由度，可跑酷穿梭高楼、改装跑车、收集都市传说彩蛋。
+    </div>
+</div>
+
+<div class="card" data-type="yihuan">
+    <h3>异环｜零氪新手开荒全流程｜升级+抽卡+资源</h3>
+    <div class="tags">
+        <span class="tag yihuan">异环</span>
+        <span class="tag">开荒</span>
+        <span class="tag">开局</span>
+    </div>
+    <div class="desc">
+1. 过完新手剧情，解锁伊波恩古董店作为核心基地；
+2. 优先推进主线，解锁猎人委托、同城派送、雨燕出行；
+3. 前期只养4星开荒角色，不盲目抽限定五星；
+4. 每日必做：异象委托、同城送货、都市传闻悬赏；
+5. 跑图解锁传送点，收集菜谱、隐藏彩蛋、突破材料。
+    </div>
+</div>
+
+<div class="card" data-type="yihuan">
+    <h3>异环｜战斗核心：环合爆发+倾陷破防+极限闪避</h3>
+    <div class="tags">
+        <span class="tag yihuan">异环</span>
+        <span class="tag">战斗</span>
+        <span class="tag">手法</span>
+    </div>
+    <div class="desc">
+【极限闪避】敌人红光预警瞬间闪避，触发无敌+增伤+快速积攒倾陷值；
+【倾陷破防】持续攻击攒满倾陷值，敌人进入破防状态，承受伤害翻倍；
+【环合反应】普攻攒满环合值，切换对应属性角色触发强力联动爆发；
+强势环合：光+灵=创生环合｜灵+咒=覆纹环合｜咒+暗=湮灭环合。
+    </div>
+</div>
+
+<div class="card" data-type="yihuan">
+    <h3>异环｜版本强势配队｜平民/BOSS/清怪全覆盖</h3>
+    <div class="tags">
+        <span class="tag yihuan">异环</span>
+        <span class="tag">配队</span>
+        <span class="tag">强势阵容</span>
+    </div>
+    <div class="desc">
+【平民开荒队】晴+柯莱塔+莉娜+诺拉｜4星成型，环合稳定，操作简单；
+【清怪群伤队】光+灵双属性｜大范围爆炸伤害，跑图效率拉满；
+【BOSS爆发队】灵+咒覆纹环合｜持续增伤，单体斩杀BOSS；
+【后期顶配队】菲娅+苍鹭+雾深+伊索尔德｜版本天花板输出组合。
+    </div>
+</div>
+
+<div class="card" data-type="yihuan">
+    <h3>异环｜都市生活全玩法｜赚钱｜买房｜载具｜休闲</h3>
+    <div class="tags">
+        <span class="tag yihuan">异环</span>
+        <span class="tag">都市</span>
+        <span class="tag">休闲</span>
+    </div>
+    <div class="desc">
+【赚钱方式】同城送货、网约车接单、异象委托、传闻悬赏；
+【房产装修】解锁公寓/别墅，自由布置家具、自定义装修风格；
+【自由探索】墙面跑酷、垂直攀爬、改装跑车穿梭都市；
+【休闲内容】做饭菜谱收集、NPC好感养成、都市传说彩蛋、拍照打卡。
+    </div>
+</div>
+
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 异环&原神攻略站｜谷歌广告（注册AdSense后替换ID即可自动赚钱）</p>
+    <!-- 谷歌AdSense广告代码，注册后替换 ca-pub-【你的ID】 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-【你的谷歌ID】" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-【你的谷歌ID】" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('[data-nav]');
-    const catLinks = document.querySelectorAll('[data-cat]');
-    const guideCards = document.querySelectorAll('.guide-card');
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
+// 深色模式
+const toggle = document.getElementById('themeToggle');
+toggle.onclick = ()=>{
+    document.body.toggleAttribute('data-theme','dark');
+    toggle.innerText = document.body.hasAttribute('data-theme') ? '☀️' : '🌙';
+}
 
-    function filterByCategory(cat) {
-        guideCards.forEach(card => {
-            if(cat === 'all' || card.dataset.category === cat) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
+// 分类筛选
+const list = document.getElementById('list');
+const cards = list.querySelectorAll('.card');
+document.querySelector('[data-all]').onclick = ()=>{
+    cards.forEach(c=>c.style.display='block');
+}
+document.querySelector('[data-genshin]').onclick = ()=>{
+    cards.forEach(c=>c.style.display = c.dataset.type==='genshin' ? 'block' : 'none');
+}
+document.querySelector('[data-yihuan]').onclick = ()=>{
+    cards.forEach(c=>c.style.display = c.dataset.type==='yihuan' ? 'block' : 'none');
+}
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const cat = link.dataset.nav;
-            filterByCategory(cat);
-            navLinks.forEach(l=>l.classList.remove('active'));
-            link.classList.add('active');
-        })
+// 搜索功能
+const sbtn = document.getElementById('sbtn');
+const kw = document.getElementById('kw');
+sbtn.onclick = ()=>{
+    const key = kw.value.toLowerCase();
+    cards.forEach(c=>{
+        c.style.display = c.innerText.toLowerCase().includes(key) ? 'block' : 'none';
     })
-
-    catLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const cat = link.dataset.cat;
-            filterByCategory(cat);
-            catLinks.forEach(l=>l.classList.remove('active-cat'));
-            link.classList.add('active-cat');
-        })
-    })
-
-    function searchGuide() {
-        const key = searchInput.value.toLowerCase();
-        guideCards.forEach(card=>{
-            const text = card.innerText.toLowerCase();
-            card.style.display = text.includes(key) ? 'block' : 'none';
-        })
-    }
-    searchBtn.onclick = searchGuide;
-    searchInput.onkeyup = e=>{if(e.key==='Enter')searchGuide();}
-})
+}
+kw.onkeyup = e=>{
+    if(e.key==='Enter') sbtn.click();
+}
 </script>
 </body>
 </html>
